@@ -1,7 +1,7 @@
 #
 # ################################################################### #
 #                                                                     #
-#  B3todiscord Plugin for BigBrotherBot(B3) (www.bigbrotherbot.com)       #
+#  B3todiscord Plugin for BigBrotherBot(B3) (www.bigbrotherbot.com)   #
 #  Copyright (c) 2019 Ouchekkir Abdelmouaine                          #
 #                                                                     #
 #  This program is free software; you can redistribute it and/or      #
@@ -203,7 +203,7 @@ class B3TodiscordPlugin(b3.plugin.Plugin):
         if ip:
             embed.textbox(name='PlayerIP', value=ip, inline=True)
 
-        embed.set_footnote(text="Guid (last 16 characters): " + hwid)
+        embed.set_footnote(text="Player Guid: " + hwid)
         embed.post()
 
     def onKick(self, event):
@@ -255,7 +255,7 @@ class B3TodiscordPlugin(b3.plugin.Plugin):
         if ip:
             embed.textbox(name='PlayerIP', value=ip, inline=True)
 
-        embed.set_footnote(text="Guid (last 16 characters): " + hwid)
+        embed.set_footnote(text="Player Guid: " + hwid)
         embed.post()
 
     def onUnban(self, event):
