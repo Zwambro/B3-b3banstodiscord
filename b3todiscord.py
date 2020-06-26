@@ -153,12 +153,12 @@ class B3TodiscordPlugin(b3.plugin.Plugin):
     def onBan(self, event):
         admin = event.data['admin']
         dict = self.console.game.__dict__
-        server = self.stripColors(str(dict['sv_hostname'])).title()
+        server = self.stripColors(str(dict['sv_hostname']))
         game = dict['gameName']
         reason = event.data['reason']
         client = event.client
         ip = client.ip
-        id = str(client.id)
+        cid = str(client.id)
         hwid = client.guid #[-16:]
 
         if admin == None:
@@ -169,28 +169,30 @@ class B3TodiscordPlugin(b3.plugin.Plugin):
         embed = DiscordEmbed(self.url, color=15466496)
 
         if "cod8" in game:
-            embed.set_gamename(name='Call of Duty: Modern Warfare 3',
+            embed.set_gamename(name='TeknoMW3',
+                               icon='https://orig00.deviantart.net/9af1/f/2011/310/2/1/modern_warfare_3_logo_by_wifsimster-d4f9ozd.png')
+        if "cod8_pluto" in game:
+            embed.set_gamename(name='PlutoIW5',
                                icon='https://orig00.deviantart.net/9af1/f/2011/310/2/1/modern_warfare_3_logo_by_wifsimster-d4f9ozd.png')
         if "t6" in game:
-            embed.set_gamename(name='Call of Duty: Black Ops 2',
+            embed.set_gamename(name='PlutoT6',
                                icon='https://i.pinimg.com/originals/5a/44/5c/5a445c5c733c698b32732550ec797e91.jpg')
         if "cod4" in game:
-            embed.set_gamename(name='Call of Duty 4: Modern Warfare',
+            embed.set_gamename(name='Cod4x',
                                icon='http://orig05.deviantart.net/8749/f/2008/055/0/c/call_of_duty_4__dock_icon_by_watts240.png')
         if "cod6" in game:
-            embed.set_gamename(name='Call of Duty: Modern Warfare 2',
+            embed.set_gamename(name='Iw4x',
                                icon='https://i.gyazo.com/758b6933287392106bfdddc24b09d502.png')
 
-        embed.set_title("**%s** Banned **%s** (@%s)" %
-                        (self.stripColors(admin_name), self.stripColors(client.name.replace("|", '')), id))
+        embed.set_desc('**%s** Banned **%s** (@%s)' %(self.stripColors(admin_name), self.stripColors(client.name.replace("|", '')), cid))
+
         if reason:
-            embed.set_desc("Reason: %s" %
-                           (self.stripColors(reason.replace(',', ''))))
+            embed.textbox(name='Reason', value=self.stripColors(reason.replace(',', '')), inline=False)
         if not reason:
             if admin == None:
-                embed.set_desc("Reason: Blacklisted Player")
+                embed.textbox(name='Reason', value='Silent Ban', inline=False)              
             else:
-                embed.set_desc("Banned for No Reason ?!!")
+                embed.textbox(name='Reason', value='Banned for No Reason ?!!', inline=False) 
 
         embed.textbox(name='Server', value=server, inline=True)
 
@@ -200,9 +202,7 @@ class B3TodiscordPlugin(b3.plugin.Plugin):
         if not 'duration' in event.data:
             embed.textbox(name='Duration', value='Permanent', inline=True)
 
-        if ip:
-            embed.textbox(name='PlayerIP', value=ip, inline=True)
-
+        embed.textbox(name='PlayerIP', value=ip, inline=True)
         embed.set_footnote(text="Player Guid: " + hwid)
         embed.post()
 
@@ -210,12 +210,12 @@ class B3TodiscordPlugin(b3.plugin.Plugin):
 
         admin = event.data['admin']
         dict = self.console.game.__dict__
-        server = self.stripColors(str(dict['sv_hostname'])).title()
+        server = self.stripColors(str(dict['sv_hostname']))
         game = dict['gameName']
         reason = event.data['reason']
         client = event.client
         ip = client.ip
-        id = str(client.id)
+        cid = str(client.id)
         hwid = client.guid #[-16:]
 
         if admin == None:
@@ -226,35 +226,33 @@ class B3TodiscordPlugin(b3.plugin.Plugin):
         embed = DiscordEmbed(self.url, color=15466496)
 
         if "cod8" in game:
-            embed.set_gamename(name='Call of Duty: Modern Warfare 3',
+            embed.set_gamename(name='TeknoMW3',
+                               icon='https://orig00.deviantart.net/9af1/f/2011/310/2/1/modern_warfare_3_logo_by_wifsimster-d4f9ozd.png')
+        if "cod8_pluto" in game:
+            embed.set_gamename(name='PlutoIW5',
                                icon='https://orig00.deviantart.net/9af1/f/2011/310/2/1/modern_warfare_3_logo_by_wifsimster-d4f9ozd.png')
         if "t6" in game:
-            embed.set_gamename(name='Call of Duty: Black Ops 2',
+            embed.set_gamename(name='PlutoT6',
                                icon='https://i.pinimg.com/originals/5a/44/5c/5a445c5c733c698b32732550ec797e91.jpg')
         if "cod4" in game:
-            embed.set_gamename(name='Call of Duty 4: Modern Warfare',
+            embed.set_gamename(name='Cod4x',
                                icon='http://orig05.deviantart.net/8749/f/2008/055/0/c/call_of_duty_4__dock_icon_by_watts240.png')
         if "cod6" in game:
-            embed.set_gamename(name='Call of Duty: Modern Warfare 2',
+            embed.set_gamename(name='Iw4x',
                                icon='https://i.gyazo.com/758b6933287392106bfdddc24b09d502.png')
 
-        embed.set_title("**%s** kicked **%s** (@%s)" %
-                        (self.stripColors(admin_name), self.stripColors(client.name.replace("|", '')), id))
+        embed.set_desc('**%s** Kicked **%s** (@%s)' %(self.stripColors(admin_name), self.stripColors(client.name.replace("|", '')), cid))
 
         if reason:
-            embed.set_desc("Reason: %s" %
-                           (self.stripColors(reason.replace(',', ''))))
+            embed.textbox(name='Reason', value=self.stripColors(reason.replace(',', '')), inline=False)
         if not reason:
             if admin == None:
-                embed.set_desc("Reason: Blacklisted Player")
+                embed.textbox(name='Reason', value='Silent Kick', inline=False)              
             else:
-                embed.set_desc("Kicked for No Reason ?!!")
-
-        embed.textbox(name='Server', value=server, inline=True)
-
-        if ip:
-            embed.textbox(name='PlayerIP', value=ip, inline=True)
-
+                embed.textbox(name='Reason', value='Kicked for No Reason ?!!', inline=False) 
+                
+        embed.textbox(name='Server', value=server, inline=True) 
+        embed.textbox(name='PlayerIP', value=ip, inline=True)
         embed.set_footnote(text="Player Guid: " + hwid)
         embed.post()
 
@@ -266,7 +264,7 @@ class B3TodiscordPlugin(b3.plugin.Plugin):
         embed = DiscordEmbed(self.url, color=0xCCCCCC)
         embed.set_thumbnail(
             'https://www.iconsdb.com/icons/download/green/checkmark-16.png')
-        embed.set_desc('**%s** has been unbanned by **%s**' %
-                       (self.stripColors(client.name), self.stripColors(admin.name)))
+        embed.set_desc('**%s** has been unbanned' %
+                       (self.stripColors(client.name)))
         embed.set_footnote()
         embed.post()
